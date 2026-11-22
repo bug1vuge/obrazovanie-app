@@ -12,7 +12,7 @@ function Trend({ current, previous }: { current: number; previous: number }) {
   const delta = Math.round(((current - previous) / previous) * 100);
   const positive = delta >= 0;
   return (
-    <span className={positive ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}>
+    <span className={positive ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600'}>
       {positive ? '▲' : '▼'} {Math.abs(delta)}% к тому же периоду прошлого месяца
     </span>
   );

@@ -418,7 +418,7 @@ export function EditorScreen() {
                       onClick={() =>
                         setPendingDelete({ kind: 'module', id: module.id, title: module.title })
                       }
-                      className="hover-dim rounded p-1.5 text-red-500"
+                      className="hover-dim rounded p-1.5 text-red-600"
                       aria-label="Удалить модуль"
                     >
                       <Trash2 size={15} />
@@ -470,7 +470,7 @@ export function EditorScreen() {
                                 title: lesson.title,
                               })
                             }
-                            className="hover-dim rounded p-1 text-red-500"
+                            className="hover-dim rounded p-1 text-red-600"
                             aria-label="Удалить урок"
                           >
                             <Trash2 size={14} />
@@ -667,7 +667,7 @@ export function EditorScreen() {
                           ),
                         })
                       }
-                      className="hover-dim ml-auto rounded p-1 text-red-500"
+                      className="hover-dim ml-auto rounded p-1 text-red-600"
                       aria-label={`Удалить вопрос ${questionIndex + 1}`}
                     >
                       <Trash2 size={14} />

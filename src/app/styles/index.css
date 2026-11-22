@@ -11,7 +11,7 @@
     --surface: 255 255 255;
     --surface-2: 242 238 230;
     --ink: 26 22 20;
-    --muted: 116 109 102;
+    --muted: 104 97 90;
     --line: 26 22 20;
     --on-primary: 255 255 255;
     --stage: 232 228 220;
@@ -215,7 +215,7 @@
   select.inp {
     appearance: none;
     padding-right: 2.4rem;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23746d66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2368615a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.85rem center;
   }

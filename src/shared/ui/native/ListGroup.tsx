@@ -65,7 +65,7 @@ export function ListRow({
         </span>
       )}
       <span className="min-w-0 flex-1">
-        <span className={cn('block truncate text-[15px]', destructive && 'text-red-500')}>
+        <span className={cn('block truncate text-[15px]', destructive && 'text-red-600')}>
           {label}
         </span>
         {detail && <span className="muted block truncate text-[12.5px]">{detail}</span>}

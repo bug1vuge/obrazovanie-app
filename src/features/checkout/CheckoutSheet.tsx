@@ -93,7 +93,7 @@ export function CheckoutSheet({ course, open, onClose, onPaid }: CheckoutSheetPr
             </Button>
           </div>
           {promoError && (
-            <p role="alert" className="mt-1.5 text-[12.5px] text-red-500">
+            <p role="alert" className="mt-1.5 text-[12.5px] text-red-600">
               {promoError}
             </p>
           )}
@@ -105,7 +105,7 @@ export function CheckoutSheet({ course, open, onClose, onPaid }: CheckoutSheetPr
             <dd>{formatPrice(course.price)}</dd>
           </div>
           {promo && (
-            <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
+            <div className="flex justify-between text-emerald-700 dark:text-emerald-400">
               <dt className="inline-flex items-center gap-1">
                 <Tag size={14} aria-hidden /> Промокод {promo.code}
               </dt>

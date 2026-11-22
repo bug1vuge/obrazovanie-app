@@ -30,12 +30,12 @@ export const CertificateView = forwardRef<HTMLDivElement, CertificateViewProps>(
                 Study Pro
               </span>
             </div>
-            <span className="text-right text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8a8398]">
+            <span className="text-right text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6e6880]">
               Сертификат № {number}
             </span>
           </div>
           <div className="my-4 text-center">
-            <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#8a8398]">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#6e6880]">
               Сертификат о завершении
             </p>
             <p className="mt-3 text-[13px] text-[#5b5668]">
@@ -52,15 +52,15 @@ export const CertificateView = forwardRef<HTMLDivElement, CertificateViewProps>(
           <div className="flex items-end justify-between gap-4 border-t border-[#e3e0ea] pt-4 text-[11px] text-[#5b5668]">
             <div>
               <p className="font-semibold text-[#171520]">{teacherName || 'Study Pro'}</p>
-              <p className="text-[10px] uppercase tracking-wider text-[#8a8398]">Преподаватель</p>
+              <p className="text-[10px] uppercase tracking-wider text-[#6e6880]">Преподаватель</p>
             </div>
             <div className="text-center">
               <p className="font-semibold text-[#171520]">{formatDate(issuedAt)}</p>
-              <p className="text-[10px] uppercase tracking-wider text-[#8a8398]">Дата выдачи</p>
+              <p className="text-[10px] uppercase tracking-wider text-[#6e6880]">Дата выдачи</p>
             </div>
             <div className="text-right">
               <p className="font-semibold text-[#171520]">{number}</p>
-              <p className="text-[10px] uppercase tracking-wider text-[#8a8398]">
+              <p className="text-[10px] uppercase tracking-wider text-[#6e6880]">
                 Проверка подлинности
               </p>
             </div>
