@@ -94,8 +94,8 @@ export function SettingsPanel({ user }: { user: User }) {
   );
 
   return (
-    <div className="-mx-4 flex flex-col gap-5">
-      <ListGroup title="Аккаунт">
+    <div className="flex flex-col gap-5">
+      <ListGroup title="Аккаунт" className="!px-0">
         <ListRow
           icon={Pencil}
           iconTone="bg-[#5b47d6]"
@@ -106,6 +106,7 @@ export function SettingsPanel({ user }: { user: User }) {
       </ListGroup>
 
       <ListGroup
+        className="!px-0"
         title="Сертификаты"
         footer={own.length === 0 ? 'Завершите курс — и сертификат появится здесь.' : undefined}
       >
@@ -125,7 +126,7 @@ export function SettingsPanel({ user }: { user: User }) {
         )}
       </ListGroup>
 
-      <ListGroup title="Оформление">
+      <ListGroup title="Оформление" className="!px-0">
         <ListRow
           icon={Moon}
           iconTone="bg-[#1f2937]"
@@ -160,7 +161,7 @@ export function SettingsPanel({ user }: { user: User }) {
         />
       </ListGroup>
 
-      <ListGroup>
+      <ListGroup className="!px-0">
         {user.isOwner && (
           <ListRow
             icon={ShieldCheck}
