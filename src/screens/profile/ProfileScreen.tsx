@@ -95,7 +95,9 @@ export function ProfileScreen() {
             label="Разделы кабинета"
             tabs={tabs}
             value={tab}
-            onChange={(next) => setParams({ tab: next }, { replace: true })}
+            onChange={(next) =>
+              setParams({ tab: next }, { replace: true, preventScrollReset: true })
+            }
           />
         </div>
         <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`} className="mt-4">

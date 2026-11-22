@@ -68,6 +68,8 @@ export function WelcomeScreen() {
       </div>
       <div
         ref={trackRef}
+        tabIndex={0}
+        aria-label="Возможности приложения"
         className="flex min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto"
         onScroll={(event) => {
           const track = event.currentTarget;

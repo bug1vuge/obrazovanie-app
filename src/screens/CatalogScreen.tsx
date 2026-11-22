@@ -53,7 +53,10 @@ export function CatalogScreen() {
   );
 
   const update = (changes: Partial<CatalogFilters>) =>
-    setParams(filtersToParams({ ...filters, ...changes }), { replace: true });
+    setParams(filtersToParams({ ...filters, ...changes }), {
+      replace: true,
+      preventScrollReset: true,
+    });
 
   const openStudio = () => {
     if (!requireAuth() || !user) return;
@@ -177,7 +180,12 @@ export function CatalogScreen() {
               <Button
                 variant="soft"
                 size="sm"
-                onClick={() => setParams(filtersToParams(DEFAULT_FILTERS))}
+                onClick={() =>
+                  setParams(filtersToParams(DEFAULT_FILTERS), {
+                    replace: true,
+                    preventScrollReset: true,
+                  })
+                }
               >
                 Сбросить всё
               </Button>
