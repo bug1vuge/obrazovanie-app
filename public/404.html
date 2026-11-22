@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Study Pro</title>
+    <script>
+      // Turn /obrazovanie-app/course/k-math into /obrazovanie-app/#/course/k-math.
+      (function () {
+        var base = '/obrazovanie-app/';
+        var path = window.location.pathname;
+        var rest = path.indexOf(base) === 0 ? path.slice(base.length) : '';
+        window.location.replace(base + (rest ? '#/' + rest + window.location.search : ''));
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
