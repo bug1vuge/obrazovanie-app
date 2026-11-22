@@ -1,5 +1,5 @@
 import { Check, RotateCcw, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { optionLetter, PASS_THRESHOLD, type QuizAnswers } from '@/entities/quiz/lib';
 import type { Quiz, QuizResult } from '@/entities/types';
 import { cn } from '@/shared/lib/cn';
@@ -16,6 +16,12 @@ export function QuizRunner({ quiz, previous, onSubmit }: QuizRunnerProps) {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [result, setResult] = useState<ReturnType<QuizRunnerProps['onSubmit']> | null>(null);
   const answered = Object.keys(answers).length;
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // The verdict renders above the questions — bring it into view after checking.
+  useEffect(() => {
+    if (result) resultRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+  }, [result]);
 
   if (quiz.questions.length === 0) {
     return <p className="muted text-sm">В этом тесте пока нет вопросов.</p>;
@@ -37,9 +43,10 @@ export function QuizRunner({ quiz, previous, onSubmit }: QuizRunnerProps) {
 
       {result && (
         <div
+          ref={resultRef}
           role="status"
           className={cn(
-            'rounded-2xl px-4 py-4',
+            'scroll-mt-24 rounded-2xl px-4 py-4',
             result.passed ? 'bg-emerald-500/[0.12]' : 'bg-amber-500/[0.14]',
           )}
         >
@@ -126,9 +133,14 @@ export function QuizRunner({ quiz, previous, onSubmit }: QuizRunnerProps) {
       {!result && (
         <div className="flex items-center justify-between gap-3">
           <span className="muted text-[12.5px]">
-            Отвечено {answered} из {quiz.questions.length}
+            {answered < quiz.questions.length
+              ? `Отвечено ${answered} из ${quiz.questions.length}`
+              : 'Все ответы выбраны'}
           </span>
-          <Button onClick={() => setResult(onSubmit(answers))} disabled={answered === 0}>
+          <Button
+            onClick={() => setResult(onSubmit(answers))}
+            disabled={answered < quiz.questions.length}
+          >
             Проверить ответы
           </Button>
         </div>

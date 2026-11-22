@@ -44,6 +44,7 @@ export function CourseScreen() {
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
     [db.reviews, id],
   );
+  const myReview = user ? (reviews.find((review) => review.userId === user.id) ?? null) : null;
   const students = useMemo(
     () => values(db.enrollments).filter((item) => item.courseId === id).length,
     [db.enrollments, id],
@@ -291,14 +292,18 @@ export function CourseScreen() {
                 onClick={() => setReviewOpen(true)}
                 className="pressable text-[14px] font-medium text-secondary"
               >
-                Оставить отзыв
+                {myReview ? 'Изменить отзыв' : 'Оставить отзыв'}
               </button>
             )}
           </div>
           {reviews.length === 0 ? (
             <EmptyState title="Отзывов пока нет" text="Станьте первым, кто оценит курс." />
           ) : (
-            <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1">
+            <div
+              tabIndex={0}
+              aria-label="Отзывы учеников"
+              className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1"
+            >
               {reviews.map((review) => (
                 <article key={review.id} className="card w-[82%] shrink-0 snap-start p-4">
                   <div className="flex items-center gap-2.5">
@@ -345,7 +350,12 @@ export function CourseScreen() {
           toast('Оплата прошла — курс открыт!');
         }}
       />
-      <ReviewSheet courseId={course.id} open={reviewOpen} onClose={() => setReviewOpen(false)} />
+      <ReviewSheet
+        courseId={course.id}
+        existing={myReview}
+        open={reviewOpen}
+        onClose={() => setReviewOpen(false)}
+      />
     </Screen>
   );
 }
