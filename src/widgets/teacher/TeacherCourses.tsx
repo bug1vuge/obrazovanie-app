@@ -72,7 +72,7 @@ export function TeacherCourses({ user }: { user: User }) {
             {own.map((course) => (
               <li key={course.id} className="card flex flex-col gap-3 p-4">
                 <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl">
-                  <CourseCover course={course} />
+                  <CourseCover course={course} sizes="96px" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">

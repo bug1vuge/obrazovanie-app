@@ -1,4 +1,4 @@
-import { BookOpen, Check, Clock, FileText, Lock, Play, Users, Video } from 'lucide-react';
+import { BookOpen, Check, Clock, FileText, Lock, Pencil, Play, Users, Video } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { examLabel, getTone } from '@/entities/course/lib';
@@ -50,6 +50,8 @@ export function CourseScreen() {
   );
 
   const enrolled = isEnrolled(db, user?.id, id);
+  // Authors (and the administrator) manage the course instead of buying it.
+  const isAuthor = canEditCourse(course, user);
   const canSee =
     course && (course.status === 'published' || enrolled || canEditCourse(course, user));
 
@@ -88,7 +90,23 @@ export function CourseScreen() {
     }
   };
 
-  const footer = enrolled ? (
+  const footer = isAuthor ? (
+    <div className="flex gap-2">
+      <Button size="lg" className="flex-1" onClick={() => navigate(`/studio/${id}`)}>
+        <Pencil size={17} aria-hidden /> Редактировать
+      </Button>
+      {outline.lessons[0] && (
+        <Button
+          size="lg"
+          variant="soft"
+          onClick={() => navigate(`/learn/${id}/${outline.lessons[0]!.id}`)}
+          aria-label="Открыть уроки"
+        >
+          <Play size={17} aria-hidden />
+        </Button>
+      )}
+    </div>
+  ) : enrolled ? (
     <Button
       size="lg"
       className="w-full"
@@ -170,7 +188,7 @@ export function CourseScreen() {
       </div>
 
       <div className="flex flex-col gap-4 px-4 pt-4">
-        {!enrolled && previewLesson && (
+        {!enrolled && !isAuthor && previewLesson && (
           <Button
             variant="outline"
             onClick={() => navigate(`/learn/${course.id}/${previewLesson.id}`)}

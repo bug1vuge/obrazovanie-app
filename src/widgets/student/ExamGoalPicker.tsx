@@ -32,7 +32,7 @@ function CourseOption({
       )}
     >
       <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl">
-        <CourseCover course={course} />
+        <CourseCover course={course} sizes="96px" />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[13.5px] font-semibold">{course.title}</span>
@@ -85,7 +85,7 @@ export function ExamGoalPicker({ user }: { user: User }) {
       <section className="card overflow-hidden" aria-label="Цель подготовки">
         <div className="flex flex-col gap-4 p-5">
           <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl">
-            <CourseCover course={goalCourse} />
+            <CourseCover course={goalCourse} sizes="96px" />
           </span>
           <div className="min-w-0 flex-1">
             <p className="muted flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-wider">

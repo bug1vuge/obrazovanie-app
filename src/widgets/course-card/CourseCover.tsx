@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getTone } from '@/entities/course/lib';
+import { coverSources, getTone } from '@/entities/course/lib';
 import type { Course } from '@/entities/types';
 import { cn } from '@/shared/lib/cn';
 
@@ -8,7 +8,7 @@ export function CourseCover({
   course,
   className,
   imgClassName,
-  sizes,
+  sizes = '100vw',
 }: {
   course: Pick<Course, 'coverUrl' | 'tone'>;
   className?: string;
@@ -24,7 +24,7 @@ export function CourseCover({
     >
       {course.coverUrl && !failed && (
         <img
-          src={course.coverUrl}
+          {...coverSources(course.coverUrl)}
           alt=""
           loading="lazy"
           decoding="async"

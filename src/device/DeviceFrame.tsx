@@ -114,7 +114,12 @@ export function DeviceFrame({ children }: { children: ReactNode }) {
         <div className="device-screen">
           {framed && <StatusBar platform={platform} />}
           <OverlayRootContext.Provider value={overlayRoot}>
-            <div className="relative min-h-0 flex-1">{overlayRoot && children}</div>
+            {/* The content area contains fixed-position overlays (transform), so
+                sheets and toasts never cover the emulated status bar. */}
+            <div className="relative min-h-0 flex-1 [transform:translateZ(0)]">
+              {overlayRoot && children}
+              <div ref={setOverlayRoot} />
+            </div>
           </OverlayRootContext.Provider>
           {framed && platform === 'ios' && (
             <span
@@ -122,7 +127,6 @@ export function DeviceFrame({ children }: { children: ReactNode }) {
               className="pointer-events-none absolute bottom-2 left-1/2 z-[70] h-[5px] w-[134px] -translate-x-1/2 rounded-full bg-[rgb(var(--ink))]"
             />
           )}
-          <div ref={setOverlayRoot} />
         </div>
       </div>
     </div>

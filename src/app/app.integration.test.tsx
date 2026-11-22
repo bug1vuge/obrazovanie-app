@@ -159,6 +159,13 @@ describe('teacher cabinet', () => {
 });
 
 describe('course, lessons and tests', () => {
+  it('lets the author edit the course instead of buying it', async () => {
+    const { user, router } = renderApp('/course/k-rus', { userId: DEMO_TEACHER_ID });
+    expect(screen.queryByRole('button', { name: 'Купить курс' })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /Редактировать/ }));
+    expect(router.state.location.pathname).toBe('/studio/k-rus');
+  });
+
   it('enrolls into a free course', async () => {
     const { user } = renderApp('/course/sp-geo-students', { userId: DEMO_STUDENT_ID });
     await user.click(screen.getByRole('button', { name: 'Записаться' }));
