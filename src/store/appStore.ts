@@ -5,10 +5,11 @@ import { createAdminSlice } from './slices/adminSlice';
 import { createAuthSlice } from './slices/authSlice';
 import { createLearningSlice } from './slices/learningSlice';
 import { createStudioSlice } from './slices/studioSlice';
+import { isDemoDataStale } from './freshness';
 import type { AppState, StoreDeps } from './types';
 
 /** Bump when the shape of persisted data or the demo seed changes. */
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 export const STORAGE_KEY = 'studypro-app-db';
 
 const defaultDeps: StoreDeps = {
@@ -48,5 +49,14 @@ export const useAppStore: AppStore = create<AppState>()(
     // Any older snapshot is replaced by a fresh seed instead of being migrated:
     // it is demo data, consistency matters more than preserving it.
     migrate: () => ({ db: buildSeed(), session: { userId: null } }),
+    // Saved demo data that is weeks old is replaced, so revenue charts and
+    // «this month» figures always look current during a demo.
+    merge: (persisted, current) => {
+      const saved = persisted as Partial<Pick<AppState, 'db' | 'session'>> | undefined;
+      if (!saved?.db || isDemoDataStale(saved.db)) {
+        return { ...current, session: saved?.session ?? current.session };
+      }
+      return { ...current, ...saved };
+    },
   }),
 );

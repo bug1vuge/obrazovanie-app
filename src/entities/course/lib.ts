@@ -82,6 +82,22 @@ export function unsplashUrl(photoId: string, width = 1080): string {
   return `${UNSPLASH}${photoId}?auto=format&fit=crop&w=${width}&q=75`;
 }
 
+const UNSPLASH_WIDTHS = [320, 640, 960, 1280] as const;
+
+/**
+ * Responsive variants for Unsplash covers so phones download small images.
+ * Other URLs (custom covers) are returned as is.
+ */
+export function coverSources(url: string): { src: string; srcSet?: string } {
+  if (!url.startsWith(UNSPLASH)) return { src: url };
+  const base = url.split('?')[0] ?? url;
+  const variant = (width: number) => `${base}?auto=format&fit=crop&w=${width}&q=75`;
+  return {
+    src: variant(960),
+    srcSet: UNSPLASH_WIDTHS.map((width) => `${variant(width)} ${width}w`).join(', '),
+  };
+}
+
 /**
  * Spare covers handed out to courses created in the studio. Every course gets
  * its own photo, so cards in the catalog never repeat a picture.

@@ -129,26 +129,29 @@ export function getUserLearning(db: Database, userId: ID | null | undefined): Le
   if (!userId) return [];
   const progress = getLessonProgressIndex(db, userId);
   const quizzes = getQuizResultIndex(db, userId);
-  return values(db.enrollments)
-    .filter((enrollment) => enrollment.userId === userId)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .map((enrollment) => {
-      const outline = getCourseOutline(db, enrollment.courseId);
-      const completed = outline.lessons.filter((lesson) => progress[lesson.id]?.completed).length;
-      const total = outline.lessons.length;
-      const next = outline.lessons.find((lesson) => !progress[lesson.id]?.completed);
-      return {
-        enrollment,
-        course: db.courses[enrollment.courseId],
-        total,
-        completed,
-        percent: total ? Math.round((completed / total) * 100) : 0,
-        quizzesPassed: Object.values(outline.quizByModule).filter(
-          (quiz) => quizzes[quiz.id]?.passed,
-        ).length,
-        nextLessonId: next?.id ?? null,
-      };
-    });
+  return (
+    values(db.enrollments)
+      // Courses removed by the administrator disappear from the learning list.
+      .filter((enrollment) => enrollment.userId === userId && db.courses[enrollment.courseId])
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .map((enrollment) => {
+        const outline = getCourseOutline(db, enrollment.courseId);
+        const completed = outline.lessons.filter((lesson) => progress[lesson.id]?.completed).length;
+        const total = outline.lessons.length;
+        const next = outline.lessons.find((lesson) => !progress[lesson.id]?.completed);
+        return {
+          enrollment,
+          course: db.courses[enrollment.courseId],
+          total,
+          completed,
+          percent: total ? Math.round((completed / total) * 100) : 0,
+          quizzesPassed: Object.values(outline.quizByModule).filter(
+            (quiz) => quizzes[quiz.id]?.passed,
+          ).length,
+          nextLessonId: next?.id ?? null,
+        };
+      })
+  );
 }
 
 export interface MonthlyRevenue {

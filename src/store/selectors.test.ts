@@ -76,3 +76,13 @@ describe('selectors', () => {
     expect(names).toHaveLength(12);
   });
 });
+
+describe('learning after a course is deleted', () => {
+  it('drops enrollments of removed courses from the learning list', () => {
+    const copy = buildSeed(TEST_NOW);
+    delete copy.courses['k-math'];
+    const ids = getUserLearning(copy, DEMO_STUDENT_ID).map((item) => item.enrollment.courseId);
+    expect(ids).not.toContain('k-math');
+    expect(ids.length).toBeGreaterThan(0);
+  });
+});
